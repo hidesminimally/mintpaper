@@ -4,6 +4,7 @@ from gi.repository import Gio
 import requests
 import urllib2
 import urllib
+import wget 
 
 url = 'http://www.reddit.com/r/spaceporn'
 request = urllib2.Request(url)
@@ -14,9 +15,8 @@ tree = html.fromstring(page.text)
 
 
 image = tree.xpath('//p[@class="title"]/a/@href')
-print image
-urllib.urlretrieve(image[1])
-
+print(image)
+wget.download(image[1])
 settings = Gio.Settings.new("org.cinnamon.desktop.background")
 settings.set_string("picture-uri", "file:///home/daniemxli/wallpaper/" + image[1])
 
